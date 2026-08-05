@@ -139,27 +139,26 @@ export const CreatorProfileAndStats: React.FC<CreatorProfileAndStatsProps> = ({ 
         })}
       </div>
 
-      {/* CREATOR PROFILE CARD */}
+{/* CREATOR PROFILE CARD */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="relative rounded-3xl bg-gradient-to-b from-[#190d35] via-[#110826] to-[#0a0518] p-6 sm:p-8 border-2 border-purple-500/50 shadow-[0_0_60px_rgba(168,85,247,0.25)] overflow-hidden"
+        className="relative rounded-3xl bg-gradient-to-b from-[#190d35] via-[#110826] to-[#0a0518] p-6 sm:p-8 border-2 border-purple-500/50 shadow-[0_0_60px_rgba(168,85,247,0.15)]"
       >
         <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start gap-6 sm:gap-8">
-          <div className="relative shrink-0">
-<div className="relative shrink-0">
-          <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl p-1 bg-gradient-to-tr from-rose-500 via-pink-500 to-purple-500 shadow-[0_0_35px_rgba(244,63,94,0.6)]">
-            <div className="w-full h-full rounded-[22px] bg-[#0c061a] flex items-center justify-center text-5xl">
-              ⚡
+         <div className="relative shrink-0">
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl p-1 bg-gradient-to-tr from-rose-500 via-pink-500 to-purple-500 shadow-[0_0_35px_rgba(244,63,94,0.6)]">
+              <div className="w-full h-full rounded-[22px] bg-[#0c061a] flex items-center justify-center text-5xl">
+                ⚡
+              </div>
             </div>
-          </div>
 
-          <div className="absolute -bottom-2 right-2 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold flex items-center gap-1.5 shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>ONLINE</span>
-          </div>
-        </div>
+            <div className="absolute -bottom-2 right-2 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold flex items-center gap-1.5 shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span>ONLINE</span>
+            </div>
+     
 
           <div className="flex-1 space-y-4 text-center lg:text-left">
             <div className="space-y-1">
