@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<TabType>('features-overview');
-  const [lang, setLang] = useState<LanguageType>('ru');
+  const [lang, setLang] = useState<LanguageType>('en');
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
 
   return (
