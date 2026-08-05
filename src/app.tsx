@@ -1,6 +1,3 @@
-1. src/App.tsx (Главный контейнер сайта)
-code
-Tsx
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { TrunkistFeaturesOverview } from './components/TrunkistFeaturesOverview';
