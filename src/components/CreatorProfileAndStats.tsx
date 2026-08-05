@@ -14,7 +14,7 @@ import {
   Code2,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import asukaAvatar from '../assets/images/asuka_avatar_custom_1785956555976.jpg';
+
 
 interface CreatorProfileAndStatsProps {
   lang: LanguageType;
@@ -152,7 +152,7 @@ export const CreatorProfileAndStats: React.FC<CreatorProfileAndStatsProps> = ({ 
             <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl p-1 bg-gradient-to-tr from-rose-500 via-pink-500 to-purple-500 shadow-[0_0_35px_rgba(244,63,94,0.6)]">
               <div className="w-full h-full rounded-[22px] bg-[#0c061a] overflow-hidden relative group">
                 <img
-                  src={asukaAvatar}
+                 src="https://raw.githubusercontent.com/dayn15220-design/trunkistcw.lua/main/asuka.jpg"
                   alt="Asuka Langley Soryu"
                   className="w-full h-full object-cover rounded-[22px] transform group-hover:scale-105 transition-transform duration-300"
                 />
