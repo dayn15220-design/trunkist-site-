@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { TrunkistFeaturesOverview } from './components/TrunkistFeaturesOverview';
+import { TrunkistCodeVault } from './components/TrunkistCodeVault';
 import { ParrySimulator } from './components/ParrySimulator';
 import { WeaponDatabase } from './components/WeaponDatabase';
 import { ExecutorConsole } from './components/ExecutorConsole';
@@ -15,15 +16,11 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#090511] text-purple-100 font-sans selection:bg-purple-600 selection:text-white">
-      <div className="relative min-h-screen flex flex-col">
-        {/* Background Ambient Glow */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 -right-40 w-96 h-96 bg-pink-900/15 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-cyan-900/15 rounded-full blur-3xl" />
-        </div>
+      {/* Dark Purple Ambient Glow */}
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,40,200,0.18),rgba(255,255,255,0))] pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#1d1233_1px,transparent_1px),linear-gradient(to_bottom,#1d1233_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0 opacity-40" />
 
-        {/* Top Header Navbar */}
+      <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -36,35 +33,47 @@ export function App() {
           <AnimatePresence mode="wait">
             {activeTab === 'features-overview' && (
               <motion.div
-                key="features"
-                initial={{ opacity: 0, y: 10 }}
+                key="features-overview"
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
               >
                 <TrunkistFeaturesOverview lang={lang} />
               </motion.div>
             )}
 
-            {activeTab === 'parry-simulator' && (
+            {activeTab === 'script-get' && (
               <motion.div
-                key="simulator"
-                initial={{ opacity: 0, y: 10 }}
+                key="script-get"
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+              >
+                <TrunkistCodeVault lang={lang} />
+              </motion.div>
+            )}
+
+            {activeTab === 'parry-arena' && (
+              <motion.div
+                key="parry-arena"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
               >
                 <ParrySimulator lang={lang} />
               </motion.div>
             )}
 
-            {activeTab === 'weapon-database' && (
+            {activeTab === 'weapon-dps' && (
               <motion.div
-                key="weapons"
-                initial={{ opacity: 0, y: 10 }}
+                key="weapon-dps"
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
               >
                 <WeaponDatabase lang={lang} />
               </motion.div>
@@ -72,11 +81,11 @@ export function App() {
 
             {activeTab === 'executor-console' && (
               <motion.div
-                key="console"
-                initial={{ opacity: 0, y: 10 }}
+                key="executor-console"
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
               >
                 <ExecutorConsole lang={lang} />
               </motion.div>
@@ -84,10 +93,9 @@ export function App() {
           </AnimatePresence>
         </main>
 
-        <footer className="border-t border-purple-900/40 py-6 text-center text-xs text-purple-400 font-mono bg-[#0c0816]/90">
+        <footer className="border-t border-purple-900/30 bg-[#07040d]/90 py-6 text-center text-xs font-mono text-purple-300/60">
           <p>
-            Trunkist HUB Monolith Engine • Created by{' '}
-            <span className="text-white font-bold">Trunkist (@dayn15220-design)</span>
+            ⚔️ Trunkist Hub | Monolith Edition (Combat Warriors) — Official Live Interactive Script Showcase & Hub
           </p>
         </footer>
       </div>
