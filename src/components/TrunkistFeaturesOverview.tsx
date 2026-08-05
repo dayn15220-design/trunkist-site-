@@ -36,8 +36,8 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
   const reasonsWhyBest = [
     {
       icon: ShieldCheck,
-      color: 'from-emerald-500 to-teal-600',
-      badgeColor: 'text-emerald-400 bg-emerald-950/80 border-emerald-500/40',
+      color: 'from-purple-900 via-purple-800 to-black',
+      badgeColor: 'text-purple-300 bg-purple-950/90 border-purple-600/50',
       titleRu: '0% Шанс Бана (Black Eye / Cat Eye Bypass)',
       titleEn: '0% Ban Rate (Black Eye / Cat Eye Bypass)',
       descRu: 'Уникальный алгоритм маскировки Luau-хуков и подделки аргументов. Скрипт полностью обходит внутренний античит Combat Warriors (Black Eye / Cat Eye / Red Eye).',
@@ -46,8 +46,8 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
     },
     {
       icon: Zap,
-      color: 'from-purple-500 to-indigo-600',
-      badgeColor: 'text-purple-300 bg-purple-950/80 border-purple-500/40',
+      color: 'from-purple-950 via-purple-850 to-purple-900',
+      badgeColor: 'text-purple-300 bg-purple-950/90 border-purple-600/50',
       titleRu: 'Мгновенный Threat Index & Auto Parry (0 ms)',
       titleEn: 'Zero-Delay Threat Engine (0 ms)',
       descRu: 'Расчет угрозы на уровне анимационных фреймов (Track.TimePosition), дистации оружия и пинга игрока. Вы отбиваете 100% атак без промахов.',
@@ -56,8 +56,8 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
     },
     {
       icon: Target,
-      color: 'from-pink-500 to-rose-600',
-      badgeColor: 'text-pink-400 bg-pink-950/80 border-pink-500/40',
+      color: 'from-purple-900 via-indigo-950 to-black',
+      badgeColor: 'text-purple-300 bg-purple-950/90 border-purple-600/50',
       titleRu: 'Защита от Фейковых Замахов (Anti-Bait Feint)',
       titleEn: 'Bypass Feint (Anti-Bait Logic)',
       descRu: 'Обычные скрипты трапываются на байты и тратять блок. Trunkist Hub распознает отмену атаки и отменяет парирование за доли миллисекунды.',
@@ -66,8 +66,8 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
     },
     {
       icon: Cpu,
-      color: 'from-cyan-500 to-blue-600',
-      badgeColor: 'text-cyan-400 bg-cyan-950/80 border-cyan-500/40',
+      color: 'from-purple-950 via-purple-900 to-black',
+      badgeColor: 'text-purple-300 bg-purple-950/90 border-purple-600/50',
       titleRu: 'Поддержка Любых Инжекторов (ПК & Mobile)',
       titleEn: 'Universal Executor Compatibility',
       descRu: 'Оптимизированный байткод с минимальной нагрузкой. Работает на Wave, Delta, Fluxus, Hydrogen, Celery и MacSploit с стабильными 60 FPS (Solara и Xeno НЕ поддерживаются из-за нехватки UNC/хуков).',
@@ -76,8 +76,8 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
     },
     {
       icon: Trophy,
-      color: 'from-amber-500 to-orange-600',
-      badgeColor: 'text-amber-400 bg-amber-950/80 border-amber-500/40',
+      color: 'from-purple-900 via-purple-800 to-black',
+      badgeColor: 'text-purple-300 bg-purple-950/90 border-purple-600/50',
       titleRu: '100% Бесплатно & Без Ключей (Keyless)',
       titleEn: '100% Free & Keyless System',
       descRu: 'Никаких сокращателей ссылок, рекламы и генераторов ключей. Вставил loadstring в консоль — и скрипт мгновенно готов к бою.',
