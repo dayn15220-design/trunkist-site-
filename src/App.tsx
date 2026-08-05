@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
-import TrunkistFeaturesOverview from './components/TrunkistFeaturesOverview';
-import ParrySimulator from './components/ParrySimulator';
-import WeaponDatabase from './components/WeaponDatabase';
-import ExecutorConsole from './components/ExecutorConsole';
-import MobileScriptModal from './components/MobileScriptModal';
+import { TrunkistFeaturesOverview } from './components/TrunkistFeaturesOverview';
+import { ParrySimulator } from './components/ParrySimulator';
+import { WeaponDatabase } from './components/WeaponDatabase';
+import { ExecutorConsole } from './components/ExecutorConsole';
+import { MobileScriptModal } from './components/MobileScriptModal';
 import { TabType, LanguageType } from './types';
 
 export default function App() {
@@ -24,8 +24,8 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {activeTab === 'features-overview' && <TrunkistFeaturesOverview lang={lang} />}
-        {activeTab === 'parry-simulator' && <ParrySimulator lang={lang} />}
-        {activeTab === 'weapon-database' && <WeaponDatabase lang={lang} />}
+        {activeTab === 'parry-arena' && <ParrySimulator lang={lang} />}
+        {activeTab === 'weapon-dps' && <WeaponDatabase lang={lang} />}
         {activeTab === 'executor-console' && <ExecutorConsole lang={lang} />}
       </main>
 
