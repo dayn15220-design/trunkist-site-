@@ -14,7 +14,6 @@ import {
   Code2,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import asukaAvatar from '../assets/images/asuka_avatar_custom_1785956555976.jpg';
 
 interface CreatorProfileAndStatsProps {
   lang: LanguageType;
