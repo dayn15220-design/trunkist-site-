@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LanguageType } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, CheckCircle2, Play, Zap, Trash2 } from 'lucide-react';
+import { Terminal, Zap, Play, Trash2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface ExecutorConsoleProps {
