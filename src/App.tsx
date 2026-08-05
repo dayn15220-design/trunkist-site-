@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
+import { Navbar } from './components/Navbar';
 import TrunkistFeaturesOverview from './components/TrunkistFeaturesOverview';
 import ParrySimulator from './components/ParrySimulator';
 import WeaponDatabase from './components/WeaponDatabase';
