@@ -49,7 +49,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const tabs: { id: TabType; labelRu: string; labelEn: string; icon: React.ElementType }[] = [
     { id: 'features-overview', labelRu: 'Функции & Почему #1', labelEn: 'Features & Why #1', icon: Sparkles },
-    { id: 'script-get', labelRu: 'Получить Скрипт', labelEn: 'Get Loadstring', icon: Terminal },
     { id: 'parry-arena', labelRu: 'Threat & Parry', labelEn: 'Threat & Parry', icon: ShieldAlert },
     { id: 'weapon-dps', labelRu: 'Арсенал & Тайминги', labelEn: 'Weapons & Timings', icon: Crosshair },
     { id: 'executor-console', labelRu: 'Консоль Скрипта', labelEn: 'Script Console', icon: Terminal },
@@ -202,3 +201,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+
