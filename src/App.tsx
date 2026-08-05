@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { TrunkistFeaturesOverview } from './components/TrunkistFeaturesOverview';
-import { ParrySimulator } from './components/ParrySimulator';
-import { WeaponDatabase } from './components/WeaponDatabase';
-import { ExecutorConsole } from './components/ExecutorConsole';
-import { MobileScriptModal } from './components/MobileScriptModal';
-import { TabType, LanguageType } from './types';
+import { Navbar } from './components/Navbar.tsx';
+import { TrunkistFeaturesOverview } from './components/TrunkistFeaturesOverview.tsx';
+import { ParrySimulator } from './components/ParrySimulator.tsx';
+import { WeaponDatabase } from './components/WeaponDatabase.tsx';
+import { ExecutorConsole } from './components/ExecutorConsole.tsx';
+import { MobileScriptModal } from './components/MobileScriptModal.tsx';
+import { TabType, LanguageType } from './types.ts';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<TabType>('features-overview');
