@@ -1,7 +1,2 @@
-export type TabType =
-  | 'features-overview'
-  | 'parry-arena'
-  | 'weapon-dps'
-  | 'executor-console';
-
+export type TabType = 'features-overview' | 'get-script' | 'parry-arena' | 'weapon-dps' | 'executor-console';
 export type LanguageType = 'ru' | 'en';
