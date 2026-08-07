@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LanguageType } from '../types';
+import { useSiteTheme } from '../context/SiteThemeContext';
+import { recordTelemetryEvent } from '../services/telemetryService';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   ShieldAlert,
@@ -97,6 +99,8 @@ const WEAPONS: Record<WeaponType, WeaponConfig> = {
 };
 
 export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
+  const { theme, playUISound } = useSiteTheme();
+
   // Mode Selection
   const [activeMode, setActiveMode] = useState<'auto-parry' | 'reaction-trainer'>('auto-parry');
 
@@ -236,6 +240,11 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
           setAutoStats((prev) => ({ parried: prev.parried + 1, missed: prev.missed, total: prev.total + 1 }));
           playFx('parry');
           confetti({ particleCount: 30, spread: 60, origin: { y: 0.7 } });
+          recordTelemetryEvent({
+            type: 'parry',
+            actionRu: `Успешное парирование ${selectedWeapon} (${distance} стадов)`,
+            actionEn: `Successfully parried ${selectedWeapon} (${distance} studs)`,
+          });
         } else {
           setSimPhase('struck');
           setThreatLevel(0.0);
@@ -322,16 +331,23 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
       className="space-y-6"
     >
       {/* HEADER BAR & MODE TOGGLE */}
-      <div className="bg-[#0b0518] rounded-3xl p-6 sm:p-8 border border-purple-900/60 shadow-2xl space-y-6">
+      <div
+        className="rounded-3xl p-6 sm:p-8 border shadow-2xl space-y-6 transition-all duration-300"
+        style={{
+          backgroundColor: theme.cardBg,
+          borderColor: theme.borderColor,
+          boxShadow: `0 0 ${theme.borderGlow / 2}px ${theme.primaryColor}20`,
+        }}
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <ShieldAlert className="w-6 h-6 text-purple-400" />
+              <ShieldAlert className="w-6 h-6" style={{ color: theme.primaryColor }} />
               <h1 className="text-xl sm:text-2xl font-black text-white font-mono uppercase tracking-wider">
                 {lang === 'ru' ? 'Combat Warriors Parry Simulator' : 'Combat Warriors Parry Simulator'}
               </h1>
             </div>
-            <p className="text-xs font-mono text-purple-300/70">
+            <p className="text-xs font-mono text-gray-300">
               {lang === 'ru'
                 ? 'Симулятор расчета хитбоксов, замахов и реакций авто-парирования Trunkist Hub'
                 : 'Interactive hitboxes, windup animations, and real-time auto-parry engine simulator'}
@@ -341,31 +357,47 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
           <div className="flex items-center gap-2">
             {/* Sound Toggle */}
             <button
-              onClick={() => setSoundEnabled(!soundEnabled)}
-              className="p-2.5 rounded-xl bg-purple-950/80 border border-purple-800/60 text-purple-300 hover:text-white transition-colors cursor-pointer"
+              onClick={() => {
+                setSoundEnabled(!soundEnabled);
+                playUISound('cyber');
+              }}
+              className="p-2.5 rounded-xl bg-black/40 border text-gray-300 hover:text-white transition-colors cursor-pointer"
+              style={{ borderColor: `${theme.borderColor}80` }}
               title={soundEnabled ? 'Disable Audio' : 'Enable Audio'}
             >
-              {soundEnabled ? <Volume2 className="w-4 h-4 text-purple-300" /> : <VolumeX className="w-4 h-4 text-purple-500" />}
+              {soundEnabled ? <Volume2 className="w-4 h-4 text-white" /> : <VolumeX className="w-4 h-4 text-gray-500" />}
             </button>
 
             {/* Mode Switcher */}
-            <div className="flex items-center p-1 rounded-xl bg-[#140828] border border-purple-900/60">
+            <div className="flex items-center p-1 rounded-xl bg-black/40 border border-white/10">
               <button
-                onClick={() => setActiveMode('auto-parry')}
+                onClick={() => {
+                  setActiveMode('auto-parry');
+                  playUISound('cyber');
+                }}
+                style={{
+                  backgroundColor: activeMode === 'auto-parry' ? theme.primaryColor : 'transparent',
+                }}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                   activeMode === 'auto-parry'
-                    ? 'bg-purple-700 text-white shadow-md'
-                    : 'text-purple-300/70 hover:text-white'
+                    ? 'text-white shadow-md'
+                    : 'text-gray-400 hover:text-white'
                 }`}
               >
                 {lang === 'ru' ? '⚡ Trunkist Auto-Parry (0ms)' : '⚡ Trunkist Auto-Parry (0ms)'}
               </button>
               <button
-                onClick={() => setActiveMode('reaction-trainer')}
+                onClick={() => {
+                  setActiveMode('reaction-trainer');
+                  playUISound('cyber');
+                }}
+                style={{
+                  backgroundColor: activeMode === 'reaction-trainer' ? theme.primaryColor : 'transparent',
+                }}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                   activeMode === 'reaction-trainer'
-                    ? 'bg-purple-700 text-white shadow-md'
-                    : 'text-purple-300/70 hover:text-white'
+                    ? 'text-white shadow-md'
+                    : 'text-gray-400 hover:text-white'
                 }`}
               >
                 {lang === 'ru' ? '🎯 Человек (Реакция [F])' : '🎯 Human Reaction Test [F]'}
@@ -377,19 +409,26 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
         {/* WEAPON & DISTANCE CONTROL BOARD */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-2">
           {/* Select Weapon */}
-          <div className="bg-[#070310] p-3.5 rounded-2xl border border-purple-900/50 space-y-1.5 col-span-1 md:col-span-2">
-            <label className="text-[10px] font-mono font-bold text-purple-300/70 uppercase block">
+          <div className="bg-black/40 p-3.5 rounded-2xl border border-white/10 space-y-1.5 col-span-1 md:col-span-2">
+            <label className="text-[10px] font-mono font-bold text-gray-300 uppercase block">
               {lang === 'ru' ? 'Оружие Соперника в Combat Warriors:' : 'Enemy Combat Warriors Weapon:'}
             </label>
             <div className="grid grid-cols-3 gap-1.5">
               {(Object.keys(WEAPONS) as WeaponType[]).map((wKey) => (
                 <button
                   key={wKey}
-                  onClick={() => setSelectedWeapon(wKey)}
+                  onClick={() => {
+                    setSelectedWeapon(wKey);
+                    playUISound('mech');
+                  }}
+                  style={{
+                    backgroundColor: selectedWeapon === wKey ? theme.primaryColor : 'rgba(0,0,0,0.3)',
+                    borderColor: selectedWeapon === wKey ? theme.primaryColor : 'rgba(255,255,255,0.1)',
+                  }}
                   className={`py-1.5 px-2 rounded-xl text-[11px] font-mono font-bold transition-all cursor-pointer border ${
                     selectedWeapon === wKey
-                      ? 'bg-purple-800 border-purple-500 text-white shadow-md'
-                      : 'bg-[#120726] border-purple-900/40 text-purple-300/80 hover:text-white'
+                      ? 'text-white shadow-md'
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {wKey}
@@ -600,7 +639,11 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
             <button
               onClick={() => runAutoParrySimulation(false)}
               disabled={isSimulating}
-              className="flex-1 py-3.5 rounded-2xl bg-purple-700 hover:bg-purple-600 text-white font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-purple-950/80 transition-all border border-purple-500/50"
+              style={{
+                backgroundColor: theme.primaryColor,
+                borderColor: `${theme.primaryColor}aa`,
+              }}
+              className="flex-1 py-3.5 rounded-2xl text-white font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:brightness-110 transition-all border"
             >
               <Play className="w-4 h-4" />
               <span>{lang === 'ru' ? 'Запустить Тест Auto-Parry [F]' : 'Run Auto-Parry Test [F]'}</span>
@@ -609,9 +652,9 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
             <button
               onClick={() => runAutoParrySimulation(true)}
               disabled={isSimulating}
-              className="py-3.5 px-6 rounded-2xl bg-[#140828] hover:bg-[#1f0d3d] text-purple-200 font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer border border-purple-700/60"
+              className="py-3.5 px-6 rounded-2xl bg-black/40 hover:bg-black/60 text-gray-200 font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer border border-white/20 transition-all"
             >
-              <Target className="w-4 h-4 text-purple-400" />
+              <Target className="w-4 h-4" style={{ color: theme.accentColor }} />
               <span>{lang === 'ru' ? 'Симуляция Финта (Anti-Bait)' : 'Simulate Enemy Feint'}</span>
             </button>
           </div>
@@ -621,7 +664,11 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
               <button
                 onClick={startReactionRound}
                 disabled={rxState === 'waiting' || rxState === 'swinging'}
-                className="flex-1 py-3.5 rounded-2xl bg-purple-700 hover:bg-purple-600 text-white font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-purple-950/80 transition-all border border-purple-500/50"
+                style={{
+                  backgroundColor: theme.primaryColor,
+                  borderColor: `${theme.primaryColor}aa`,
+                }}
+                className="flex-1 py-3.5 rounded-2xl text-white font-mono font-bold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:brightness-110 transition-all border"
               >
                 <Zap className="w-4 h-4" />
                 <span>
@@ -638,9 +685,13 @@ export const ParrySimulator: React.FC<ParrySimulatorProps> = ({ lang }) => {
               <button
                 onClick={handlePlayerParryInput}
                 disabled={rxState !== 'swinging' && rxState !== 'waiting'}
-                className="py-3.5 px-8 rounded-2xl bg-purple-900 hover:bg-purple-800 text-white font-mono font-extrabold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer border border-purple-500/60"
+                style={{
+                  backgroundColor: theme.accentColor,
+                  borderColor: `${theme.accentColor}aa`,
+                }}
+                className="py-3.5 px-8 rounded-2xl text-white font-mono font-extrabold text-xs uppercase flex items-center justify-center gap-2 cursor-pointer border hover:brightness-110 transition-all"
               >
-                <ShieldAlert className="w-4 h-4 text-purple-300" />
+                <ShieldAlert className="w-4 h-4 text-white" />
                 <span>PARRY NOW [F]</span>
               </button>
             </div>
