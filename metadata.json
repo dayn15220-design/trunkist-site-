@@ -1,1 +1,6 @@
-
+{
+  "name": "Trunkist Hub | Monolith Edition (Combat Warriors)",
+  "description": "Official interactive website, UI simulator, loadstring repository, and threat/parry simulator for Trunkist Hub (Roblox Combat Warriors).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
