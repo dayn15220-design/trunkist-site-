@@ -20,7 +20,6 @@ function AppContent() {
   const [lang, setLang] = useState<LanguageType>('en');
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
 
-  // Send real telemetry heartbeat every 4 seconds
   useEffect(() => {
     sendHeartbeat(activeTab, lang);
     const interval = setInterval(() => {
@@ -41,10 +40,8 @@ function AppContent() {
       className={`min-h-screen text-purple-100 selection:bg-purple-600 selection:text-white relative transition-colors duration-300 ${fontClass}`}
       style={{ backgroundColor: theme.bgColor }}
     >
-      {/* Dynamic Background Effects (Matrix Rain, CRT Scanlines, Sparks, Cursor Glow) */}
       <AtmosphereFX />
 
-      {/* Cyber Grid Overlay */}
       {theme.showGridLines && (
         <div
           className="fixed inset-0 bg-[linear-gradient(to_right,#ffffff0c_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0c_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none z-0"
@@ -52,7 +49,6 @@ function AppContent() {
         />
       )}
 
-      {/* Ambient Radial Color Glow */}
       <div
         className="fixed inset-0 pointer-events-none z-0 transition-all duration-500"
         style={{
@@ -72,85 +68,43 @@ function AppContent() {
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <AnimatePresence mode="wait">
             {activeTab === 'features-overview' && (
-              <motion.div
-                key="features-overview"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="features-overview" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <TrunkistFeaturesOverview lang={lang} />
               </motion.div>
             )}
 
             {activeTab === 'live-telemetry' && (
-              <motion.div
-                key="live-telemetry"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="live-telemetry" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <LiveOnlineTracker lang={lang} />
               </motion.div>
             )}
 
             {activeTab === 'live-chat' && (
-              <motion.div
-                key="live-chat"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="live-chat" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <LiveCommunityChat lang={lang} />
               </motion.div>
             )}
 
             {activeTab === 'ui-customizer' && (
-              <motion.div
-                key="ui-customizer"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="ui-customizer" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <WebsiteThemeCustomizer lang={lang} />
               </motion.div>
             )}
 
             {activeTab === 'parry-arena' && (
-              <motion.div
-                key="parry-arena"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="parry-arena" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <ParrySimulator lang={lang} />
               </motion.div>
             )}
 
             {activeTab === 'weapon-dps' && (
-              <motion.div
-                key="weapon-dps"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="weapon-dps" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <WeaponDatabase lang={lang} />
               </motion.div>
             )}
 
             {activeTab === 'executor-console' && (
-              <motion.div
-                key="executor-console"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div key="executor-console" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }}>
                 <ExecutorConsole lang={lang} />
               </motion.div>
             )}
@@ -158,13 +112,10 @@ function AppContent() {
         </main>
 
         <footer className="border-t border-purple-900/30 bg-[#07040d]/90 py-6 text-center text-xs font-mono text-purple-300/60">
-          <p>
-            ⚔️ Trunkist Hub | v1.4.8.8 TR Edition (Combat Warriors) — Official Live Interactive Script Showcase & Hub
-          </p>
+          <p>⚔️ Trunkist Hub | v1.4.8.8 TR Edition (Combat Warriors) — Official Live Hub</p>
         </footer>
       </div>
 
-      {/* Mobile & Delta Script Modal */}
       <MobileScriptModal
         isOpen={isMobileModalOpen}
         onClose={() => setIsMobileModalOpen(false)}
