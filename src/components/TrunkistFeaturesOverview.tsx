@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { LanguageType } from '../types';
+import { useSiteTheme } from '../context/SiteThemeContext';
 import { CreatorProfileAndStats } from './CreatorProfileAndStats';
+import { TrunkistCodeVault } from './TrunkistCodeVault';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Sparkles,
@@ -29,6 +31,7 @@ interface TrunkistFeaturesOverviewProps {
 }
 
 export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> = ({ lang }) => {
+  const { theme, playUISound } = useSiteTheme();
   const [activeCategory, setActiveCategory] = useState<'All' | 'Combat' | 'Aim' | 'Physics' | 'Visuals' | 'Security'>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState<number | null>(0);
@@ -332,7 +335,14 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
       className="space-y-10"
     >
       {/* HERO SECTION: Why Trunkist Hub is #1 */}
-      <div className="relative bg-gradient-to-b from-[#140b2a] via-[#100722] to-[#0a0516] rounded-3xl p-6 sm:p-10 border border-purple-800/40 shadow-2xl overflow-hidden">
+      <div
+        className="relative rounded-3xl p-6 sm:p-10 border shadow-2xl overflow-hidden transition-all duration-300"
+        style={{
+          backgroundColor: theme.cardBg,
+          borderColor: theme.borderColor,
+          boxShadow: `0 0 ${theme.borderGlow / 2}px ${theme.primaryColor}20`,
+        }}
+      >
         {/* Animated Background Glowing Orbs */}
         <motion.div
           animate={{
@@ -340,7 +350,8 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
             opacity: [0.15, 0.3, 0.15],
           }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-20 -right-20 w-96 h-96 bg-purple-600/30 rounded-full blur-3xl pointer-events-none"
+          style={{ backgroundColor: theme.primaryColor }}
+          className="absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl pointer-events-none"
         />
         <motion.div
           animate={{
@@ -357,7 +368,7 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
             <div className="space-y-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-purple-900/80 to-pink-900/80 text-purple-200 text-xs font-mono font-bold border border-purple-500/40 shadow-lg">
                 <Sparkles className="w-4 h-4 text-pink-400 animate-pulse" />
-                <span>MONOLITH ENGINE V4.8 | OFFICIAL OVERVIEW</span>
+                <span>v1.4.8.8 TR ENGINE | OFFICIAL OVERVIEW</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-mono tracking-tight leading-tight">
@@ -408,30 +419,47 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
                   key={idx}
                   variants={itemVariants}
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  className="bg-[#0e071e]/90 p-5 rounded-2xl border border-purple-900/50 shadow-lg flex flex-col justify-between space-y-4 hover:border-purple-500/50 transition-colors group relative overflow-hidden"
+                  style={{
+                    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                    borderColor: `${theme.borderColor}80`,
+                  }}
+                  className="p-5 rounded-2xl border shadow-lg flex flex-col justify-between space-y-4 transition-all group relative overflow-hidden"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${r.color} flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform`}>
-                        <Icon className="w-5 h-5" />
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform border"
+                        style={{
+                          backgroundColor: `${theme.primaryColor}25`,
+                          borderColor: `${theme.primaryColor}80`,
+                        }}
+                      >
+                        <Icon className="w-5 h-5" style={{ color: theme.primaryColor }} />
                       </div>
-                      <span className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border ${r.badgeColor}`}>
+                      <span
+                        className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border"
+                        style={{
+                          backgroundColor: `${theme.primaryColor}15`,
+                          borderColor: `${theme.primaryColor}50`,
+                          color: theme.primaryColor,
+                        }}
+                      >
                         {r.stat}
                       </span>
                     </div>
 
-                    <h3 className="font-mono font-bold text-sm text-white group-hover:text-purple-300 transition-colors">
+                    <h3 className="font-mono font-bold text-sm text-white group-hover:text-gray-200 transition-colors">
                       {lang === 'ru' ? r.titleRu : r.titleEn}
                     </h3>
 
-                    <p className="text-purple-300/75 text-xs font-mono leading-relaxed">
+                    <p className="text-gray-300 text-xs font-mono leading-relaxed">
                       {lang === 'ru' ? r.descRu : r.descEn}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-purple-900/40 flex items-center justify-between text-[10px] font-mono text-purple-400/60">
-                    <span>TRUNKIST EXCLUSIVE</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-purple-400 group-hover:translate-x-1 transition-transform" />
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-gray-400">
+                    <span style={{ color: theme.primaryColor }}>TRUNKIST EXCLUSIVE</span>
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" style={{ color: theme.primaryColor }} />
                   </div>
                 </motion.div>
               );
@@ -440,20 +468,36 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
         </div>
       </div>
 
+      {/* GET LOADSTRING CODE VAULT SECTION */}
+      <TrunkistCodeVault lang={lang} />
+
       {/* STATS & CREATOR PROFILE CARD (dayn15220) */}
       <CreatorProfileAndStats lang={lang} />
 
       {/* COMPARISON MATRIX: Trunkist vs Competitors */}
-      <div className="bg-[#0e071e] rounded-3xl p-6 sm:p-8 border border-purple-900/50 shadow-2xl space-y-6">
+      <div
+        className="rounded-3xl p-6 sm:p-8 border shadow-2xl space-y-6 transition-all duration-300"
+        style={{
+          backgroundColor: theme.cardBg,
+          borderColor: theme.borderColor,
+          boxShadow: `0 0 ${theme.borderGlow / 2}px ${theme.primaryColor}20`,
+        }}
+      >
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-purple-900/50 text-purple-300 border border-purple-700/50">
-            <Trophy className="w-5 h-5 text-amber-400" />
+          <div
+            className="p-2.5 rounded-xl border text-white"
+            style={{
+              backgroundColor: `${theme.primaryColor}20`,
+              borderColor: `${theme.primaryColor}60`,
+            }}
+          >
+            <Trophy className="w-5 h-5" style={{ color: theme.accentColor }} />
           </div>
           <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-white font-mono">
               {lang === 'ru' ? 'Сравнение: Trunkist Hub против Других Скриптов' : 'Comparison Matrix: Trunkist Hub vs Others'}
             </h2>
-            <p className="text-xs font-mono text-purple-300/70">
+            <p className="text-xs font-mono text-gray-300">
               {lang === 'ru' ? 'Почему игроки Combat Warriors выбирают именно наш хаб' : 'Why top Combat Warriors players switch to Trunkist Hub'}
             </p>
           </div>
@@ -462,20 +506,38 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
         <div className="overflow-x-auto">
           <table className="w-full text-left font-mono text-xs border-collapse">
             <thead>
-              <tr className="border-b border-purple-900/60 bg-[#090414] text-purple-300">
+              <tr
+                className="border-b text-white"
+                style={{
+                  backgroundColor: `${theme.bgColor}aa`,
+                  borderColor: `${theme.borderColor}60`,
+                }}
+              >
                 <th className="p-4 font-bold uppercase">{lang === 'ru' ? 'Характеристика' : 'Feature / Capability'}</th>
-                <th className="p-4 font-bold uppercase text-purple-400 bg-purple-950/40">
-                  ⚔️ Trunkist Hub
+                <th
+                  className="p-4 font-bold uppercase"
+                  style={{
+                    backgroundColor: `${theme.primaryColor}25`,
+                    color: theme.primaryColor,
+                  }}
+                >
+                  ⚔️ {theme.titlePrefix || 'Trunkist'} Hub
                 </th>
                 <th className="p-4 font-bold uppercase text-stone-400">{lang === 'ru' ? 'Другие Скрипты' : 'Other Scripts'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-purple-900/40">
+            <tbody className="divide-y divide-white/10">
               {comparisonData.map((row, idx) => (
-                <tr key={idx} className="hover:bg-purple-950/20 transition-colors">
+                <tr key={idx} className="hover:bg-white/5 transition-colors">
                   <td className="p-4 text-white font-semibold">{lang === 'ru' ? row.featureRu : row.featureEn}</td>
-                  <td className="p-4 text-emerald-400 font-bold bg-purple-950/20 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <td
+                    className="p-4 font-bold flex items-center gap-2"
+                    style={{
+                      backgroundColor: `${theme.primaryColor}10`,
+                      color: theme.primaryColor,
+                    }}
+                  >
+                    <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: theme.primaryColor }} />
                     <span>{row.trunkist}</span>
                   </td>
                   <td className="p-4 text-rose-400/80">
@@ -492,31 +554,42 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
       </div>
 
       {/* DETAILED FEATURES BREAKDOWN */}
-      <div className="bg-[#0e071e] rounded-3xl p-6 sm:p-8 border border-purple-900/50 shadow-2xl space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-purple-900/40 pb-6">
+      <div
+        className="rounded-3xl p-6 sm:p-8 border shadow-2xl space-y-6 transition-all duration-300"
+        style={{
+          backgroundColor: theme.cardBg,
+          borderColor: theme.borderColor,
+          boxShadow: `0 0 ${theme.borderGlow / 2}px ${theme.primaryColor}20`,
+        }}
+      >
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Layers className="w-5 h-5 text-purple-400" />
+              <Layers className="w-5 h-5" style={{ color: theme.primaryColor }} />
               <h2 className="text-xl sm:text-2xl font-extrabold text-white font-mono">
                 {lang === 'ru' ? 'Полный Подробный Обзор Каждой Функции' : 'Detailed Breakdown of All Features'}
               </h2>
             </div>
-            <p className="text-xs font-mono text-purple-300/70">
+            <p className="text-xs font-mono text-gray-300">
               {lang === 'ru'
-                ? 'Полный функционал Monolith Engine. Выберите категорию или используйте поиск'
-                : 'Explore all capabilities of Monolith Engine. Select a category or search'}
+                ? 'Полный функционал v1.4.8.8 TR Engine. Выберите категорию или используйте поиск'
+                : 'Explore all capabilities of v1.4.8.8 TR Engine. Select a category or search'}
             </p>
           </div>
 
           {/* Search Box */}
           <div className="relative w-full md:w-64">
-            <Search className="w-4 h-4 text-purple-400 absolute left-3 top-3 pointer-events-none" />
+            <Search className="w-4 h-4 absolute left-3 top-3 pointer-events-none text-gray-400" />
             <input
               type="text"
               placeholder={lang === 'ru' ? 'Поиск функции...' : 'Search feature...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#090414] border border-purple-800/60 text-xs font-mono text-purple-200 placeholder-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 shadow-inner"
+              style={{
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                borderColor: `${theme.borderColor}80`,
+              }}
+              className="w-full pl-9 pr-4 py-2 rounded-xl border text-xs font-mono text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-white shadow-inner"
             />
           </div>
         </div>
@@ -535,20 +608,20 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id as any)}
-                className={`relative px-4 py-2 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
+                onClick={() => {
+                  setActiveCategory(cat.id as any);
+                  playUISound('cyber');
+                }}
+                style={{
+                  backgroundColor: isActive ? theme.primaryColor : 'rgba(0,0,0,0.3)',
+                  borderColor: isActive ? theme.accentColor : 'rgba(255,255,255,0.1)',
+                }}
+                className={`relative px-4 py-2 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer border ${
                   isActive
                     ? 'text-white shadow-lg'
-                    : 'bg-[#090414] text-purple-300/70 hover:text-white border border-purple-900/40'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeTabGlow"
-                    className="absolute inset-0 bg-gradient-to-r from-purple-700 to-pink-600 rounded-xl -z-10 shadow-md shadow-purple-900/40"
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
-                  />
-                )}
                 <span>{lang === 'ru' ? cat.labelRu : cat.labelEn}</span>
               </button>
             );
@@ -569,24 +642,34 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
               <motion.div
                 key={idx}
                 variants={itemVariants}
-                onClick={() => setSelectedFeatureIndex(idx)}
+                onClick={() => {
+                  setSelectedFeatureIndex(idx);
+                  playUISound('mech');
+                }}
                 whileHover={{ scale: 1.01 }}
-                className={`p-5 rounded-2xl border transition-all cursor-pointer space-y-3 ${
-                  isSelected
-                    ? 'bg-[#150a2b] border-purple-500/80 ring-2 ring-purple-500/30 shadow-xl'
-                    : 'bg-[#090414] border-purple-900/40 hover:border-purple-700/60'
-                }`}
+                style={{
+                  backgroundColor: isSelected ? `${theme.primaryColor}15` : 'rgba(0,0,0,0.35)',
+                  borderColor: isSelected ? theme.primaryColor : 'rgba(255,255,255,0.1)',
+                  boxShadow: isSelected ? `0 0 15px ${theme.primaryColor}35` : 'none',
+                }}
+                className={`p-5 rounded-2xl border transition-all cursor-pointer space-y-3`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-purple-900/40 text-purple-300 border border-purple-700/50">
-                      <Icon className="w-5 h-5 text-purple-300" />
+                    <div
+                      className="p-2.5 rounded-xl border text-white"
+                      style={{
+                        backgroundColor: `${theme.primaryColor}20`,
+                        borderColor: `${theme.primaryColor}50`,
+                      }}
+                    >
+                      <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <h3 className="font-mono font-bold text-sm text-white">
                         {lang === 'ru' ? feat.nameRu : feat.nameEn}
                       </h3>
-                      <span className="text-[10px] font-mono text-purple-400/80">
+                      <span className="text-[10px] font-mono text-gray-300">
                         {lang === 'ru' ? feat.summaryRu : feat.summaryEn}
                       </span>
                     </div>
@@ -596,14 +679,20 @@ export const TrunkistFeaturesOverview: React.FC<TrunkistFeaturesOverviewProps> =
                     <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-500/40">
                       {feat.status}
                     </span>
-                    <span className="text-[9px] font-mono text-purple-300/60">
+                    <span className="text-[9px] font-mono text-gray-400">
                       [{feat.hotkey}]
                     </span>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-purple-900/40 text-xs font-mono text-purple-200/90 leading-relaxed bg-purple-950/20 p-3 rounded-xl border border-purple-900/30">
-                  <span className="text-purple-400 font-bold block mb-1">
+                <div
+                  className="pt-3 border-t text-xs font-mono text-gray-200 leading-relaxed p-3 rounded-xl border"
+                  style={{
+                    backgroundColor: 'rgba(0,0,0,0.25)',
+                    borderColor: 'rgba(255,255,255,0.08)',
+                  }}
+                >
+                  <span className="font-bold block mb-1" style={{ color: theme.primaryColor }}>
                     {lang === 'ru' ? 'Как это работает под капотом:' : 'Under the hood operation:'}
                   </span>
                   {lang === 'ru' ? feat.detailsRu : feat.detailsEn}
